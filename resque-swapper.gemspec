@@ -1,6 +1,3 @@
-require 'rake/gempackagetask'
-require 'rake/rdoctask'
-
 VERSION = '0.1.1'
 
 Gem::Specification.new do |s|
@@ -13,7 +10,8 @@ Gem::Specification.new do |s|
   s.email = 'endel.dreyer@gmail.com'
   s.files = %w(LICENSE) + Dir.glob("{lib}/**/*")
   s.require_path = "lib"
-  # s.bindir = "bin"
+
+  s.add_runtime_dependency 'resque', '>= 1.15.0'
   
   s.description = <<description
     Swapping tool for Resque server on runtime.

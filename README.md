@@ -2,13 +2,24 @@
 
 Allows to configure and Resque servers to swap them on runtime.
 
-# Configuration file
+# Configuration
 
-Add *require 'resque-swapper/tasks'* into your Rakefile.
-Generate your servers configuration file. By default will be created at config/resque.yml
+Create a <code>config/resque.yml</code> for your project, like this:
 
-	rake resque:config NAME=default HOST=localhost
-	rake resque:config NAME=second HOST=x.x.x.x
+    production:
+      localhost:
+        host: localhost
+        port: 6379
+      another:
+        host: 192.168.1.5
+        port: 6379
+    development:
+      localhost:
+        host: localhost
+        port: 6379
+      another:
+        host: localhost
+        port: 6380
 	
 # How to use
 
@@ -27,3 +38,8 @@ Direct swap:
 
 	Resque.swap(:another)
 	Resque.enqueue(Something, 'foo')
+
+
+# License
+
+resque-swapper is released under MIT License. Please see LICENSE file.
