@@ -9,6 +9,11 @@ class ResqueSwapperTest < Test::Unit::TestCase
     end
     Resque.redis = current
   end
+
+  def test_config
+    assert_equal Resque.info[:environment], 'test'
+    assert_equal Resque::Swapper.config, YAML.load_file('config/resque.yml')['test']
+  end
   
   def test_swap
     current = Resque.redis
@@ -31,3 +36,4 @@ class ResqueSwapperTest < Test::Unit::TestCase
     assert_equal nil, Resque.redis.get('value')
   end
 end
+

@@ -9,17 +9,15 @@ namespace 'resque' do
     
     file = 'config/resque.yml'
     FileUtils.mkdir_p('config')
-    
-    append_config = <<YML
-#{name}:
-  host: #{host}
-  port: #{port}
 
-YML
-    File.open(file, 'a') do |f|
-      f.write(append_config)
+    server = {'name' => {'host' => host, 'port' => port}}
+
+    configuration = (File.exists?(file)) ? YAML.load_file(file) : {}
+    %w{production development test}.each do |env|
+      configuration[env] = server
     end
-    puts "Write into #{file}: "
-    puts append_config
+    
+    File.open(file, 'w+') {|f| f.write(configuration.to_yaml) }
+    "#{file} was updated."
   end
 end

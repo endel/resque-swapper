@@ -1,11 +1,12 @@
-localhost: 
-  host: 'localhost'
-  port: 6379
+test:
+  localhost:
+    host: 'localhost'
+    port: 6379
 
-merlin:
-  host: 'localhost'
-  port: 6382
-  
-aang:
-  host: 'localhost'
-  port: 6383
+  merlin:
+    host: 'localhost'
+    port: 6380
+    
+  aang:
+    host: 'localhost'
+    port: 6381

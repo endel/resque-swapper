@@ -1,4 +1,6 @@
 require 'resque'
 require 'resque-swapper/resque-swapper'
 
-Resque.servers = 'config/resque.yml'
+if File.exists?('config/resque.yml')
+  Resque::Swapper.load('config/resque.yml')
+end
