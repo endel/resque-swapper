@@ -37,6 +37,18 @@ class ResqueSwapperTest < Test::Unit::TestCase
     assert_equal nil, Resque.redis.get('value')
   end
 
+  def test_swap_with_exception
+    current = Resque.redis
+    
+    assert_raise(RuntimeError, "EGADS!") do
+      Resque.swap(:merlin) do |resque|
+        raise "EGADS!"
+      end
+    end
+
+    assert_same_db Resque.redis, current, "Should swap back to starting db on exception"
+  end
+
   def assert_same_db(redis1, redis2, msg)
     assert_equal redis1.client.db, redis2.client.db, msg
   end
