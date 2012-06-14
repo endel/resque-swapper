@@ -21,19 +21,24 @@ class ResqueSwapperTest < Test::Unit::TestCase
     Resque.swap(:merlin) do |resque|
       resque.redis.set('value', "I am Merlin!")
     end
-    assert_equal Resque.redis.id, current.id, "Current shound't be swapped after swap with block."
+    assert_same_db Resque.redis, current, "Current shound't be swapped after swap with block."
     
     Resque.swap(:aang) do |resque|
       resque.redis.set('value', "I am Aang!")
     end
-    assert_equal Resque.redis.id, current.id, "Current shound't be swapped after swap with block."
+    assert_same_db Resque.redis, current, "Current shound't be swapped after swap with block."
     
     Resque.swap(:aang)
-    assert_equal Resque.redis.id, Resque.server(:aang).id, "Current Redis should be swapped after direct swap."
+     
+    assert_same_db Resque.redis, Resque.server(:aang), "Current Redis should be swapped after direct swap."
     
     Resque.swap(:localhost)
     
     assert_equal nil, Resque.redis.get('value')
+  end
+
+  def assert_same_db(redis1, redis2, msg)
+    assert_equal redis1.client.db, redis2.client.db, msg
   end
 end
 

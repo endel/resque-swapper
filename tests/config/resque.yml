@@ -2,11 +2,14 @@ test:
   localhost:
     host: 'localhost'
     port: 6379
+    db: 0
 
   merlin:
     host: 'localhost'
-    port: 6380
+    port: 6379
+    db: 1
     
   aang:
     host: 'localhost'
-    port: 6381
+    port: 6379
+    db: 2
