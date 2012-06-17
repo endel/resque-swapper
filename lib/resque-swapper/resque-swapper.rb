@@ -27,8 +27,11 @@ module Resque
     # Create Redis connection.
     Resque.redis = server_connect(server, Swapper.config(server))
     if block_given?
-      yield Resque
-      Resque.redis = current
+      begin
+        yield Resque
+      ensure
+        Resque.redis = current
+      end
     end
     Resque
   end
