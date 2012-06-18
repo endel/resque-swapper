@@ -1,8 +1,11 @@
-VERSION = '0.1.1'
+require File.join(File.dirname(__FILE__),
+                  'lib',
+                  'resque-swapper',
+                  'version')
 
 Gem::Specification.new do |s|
   s.name = 'resque-swapper'
-  s.version = VERSION
+  s.version = Resque::Swapper::VERSION
   s.summary = 'Swapping tool for Resque server on runtime.'
   s.homepage = "http://github.com/endel/resque-swapper"
   
